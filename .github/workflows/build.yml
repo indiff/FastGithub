@@ -76,7 +76,24 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration && tree
+      run: |
+        msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration 
+        tree FastGithub/obj/
+        del /f /s /q FastGithub/obj/lib
+        del /f /s /q FastGithub/obj/src
+        del /f /s /q FastGithub/obj/Makefile
+        del /f /s /q FastGithub/obj/*.8
+        del /f /s /q FastGithub/obj/*.err
+        del /f /s /q FastGithub/obj/*.c
+        del /f /s /q FastGithub/obj/*.h
+        del /f /s /q FastGithub/obj/*.o
+        del /f /s /q FastGithub/obj/*.obj
+        del /f /s /q FastGithub/obj/*.pdb
+        del /f /s /q FastGithub/obj/*.lib
+        del /f /s /q FastGithub/obj/*.exp
+        del /f /s /q FastGithub/obj/*.ilk
+        del /f /s /q FastGithub/obj/*.res
+        del /f /s /q FastGithub/obj/*.pch
       env:
         Configuration: ${{ matrix.configuration }}
 
@@ -86,4 +103,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: FastGithub Package
-        path: FastGithub\x64\${{ env.Configuration }}
+        path: FastGithub/obj/
