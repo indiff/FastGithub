@@ -1,4 +1,4 @@
-wee# This workflow uses actions that are not certified by GitHub.
+# This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
@@ -51,8 +51,8 @@ jobs:
     strategy:
       matrix:
         configuration: [Release]
-
-    runs-on: windows-latest  # For a list of available runner types, refer to
+        platform: [x64]
+    runs-on: windows-2025  # For a list of available runner types, refer to
                              # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
 
     env:
@@ -75,9 +75,10 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore the application
+    - name: MsBuild application
       run: |
-        msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration 
+        # msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration 
+        msbuild $env:Solution_Name /m /p:UseSharedCompilation=true /p:RunCodeAnalysis=false /p:BuildInParallel=true /p:DebugType=None /p:Optimize=true /p:Configuration="${{ matrix.configuration }}" /p:platform="${{ matrix.platform }}" /p:PlatformToolset="v143"
         tree FastGithub/obj/
         del FastGithub/obj/lib
         del FastGithub/obj/src
@@ -94,9 +95,6 @@ jobs:
         del FastGithub/obj/*.ilk
         del FastGithub/obj/*.res
         del FastGithub/obj/*.pch
-      env:
-        Configuration: ${{ matrix.configuration }}
-
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
