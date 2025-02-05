@@ -77,9 +77,10 @@ jobs:
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: MsBuild application
       run: |
-        # msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration 
+        msbuild $env:Solution_Name /t:Restore /p:Configuration="${{ matrix.configuration }}" 
         msbuild $env:Solution_Name /m /p:UseSharedCompilation=true /p:RunCodeAnalysis=false /p:BuildInParallel=true /p:DebugType=None /p:Optimize=true /p:Configuration="${{ matrix.configuration }}" /p:platform="${{ matrix.platform }}" /p:PlatformToolset="v143"
-        tree FastGithub/obj/
+        tree .
+        tree bin\Release
         del FastGithub/obj/lib
         del FastGithub/obj/src
         del FastGithub/obj/Makefile
