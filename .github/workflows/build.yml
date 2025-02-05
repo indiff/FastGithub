@@ -1,4 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
+wee# This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
@@ -79,21 +79,21 @@ jobs:
       run: |
         msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration 
         tree FastGithub/obj/
-        del /f /s /q FastGithub/obj/lib
-        del /f /s /q FastGithub/obj/src
-        del /f /s /q FastGithub/obj/Makefile
-        del /f /s /q FastGithub/obj/*.8
-        del /f /s /q FastGithub/obj/*.err
-        del /f /s /q FastGithub/obj/*.c
-        del /f /s /q FastGithub/obj/*.h
-        del /f /s /q FastGithub/obj/*.o
-        del /f /s /q FastGithub/obj/*.obj
-        del /f /s /q FastGithub/obj/*.pdb
-        del /f /s /q FastGithub/obj/*.lib
-        del /f /s /q FastGithub/obj/*.exp
-        del /f /s /q FastGithub/obj/*.ilk
-        del /f /s /q FastGithub/obj/*.res
-        del /f /s /q FastGithub/obj/*.pch
+        del FastGithub/obj/lib
+        del FastGithub/obj/src
+        del FastGithub/obj/Makefile
+        del FastGithub/obj/*.8
+        del FastGithub/obj/*.err
+        del FastGithub/obj/*.c
+        del FastGithub/obj/*.h
+        del FastGithub/obj/*.o
+        del FastGithub/obj/*.obj
+        del FastGithub/obj/*.pdb
+        del FastGithub/obj/*.lib
+        del FastGithub/obj/*.exp
+        del FastGithub/obj/*.ilk
+        del FastGithub/obj/*.res
+        del FastGithub/obj/*.pch
       env:
         Configuration: ${{ matrix.configuration }}
 
