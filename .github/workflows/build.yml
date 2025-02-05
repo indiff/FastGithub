@@ -79,7 +79,7 @@ jobs:
       run: |
         msbuild $env:Solution_Name /t:Restore /p:Configuration="${{ matrix.configuration }}" 
         msbuild $env:Solution_Name /m /p:UseSharedCompilation=true /p:RunCodeAnalysis=false /p:BuildInParallel=true /p:DebugType=None /p:Optimize=true /p:Configuration="${{ matrix.configuration }}" /p:platform="${{ matrix.platform }}" /p:PlatformToolset="v143"
-        # tree .
+        tree .
         # del FastGithub/obj/*.pch
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
@@ -87,10 +87,11 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: FastGithub(net5.0)
-        path: bin\Release\net5.0
+        path: |
+          FastGithub\bin\Release\net5.0
         
     - name: Upload build artifacts(net6.0)
       uses: actions/upload-artifact@v4
       with:
         name: FastGithub(net6.0)
-        path: bin\Release\net6.0
+        path: FastGithub\bin\Release\net6.0
